@@ -5,7 +5,7 @@
   <title>Testador Código Lendário</title>
   <style>
     body {
-      background-color: #1a001a;
+      background-color: #1a001a; /* Roxo escuro */
       color: #fff;
       font-family: monospace;
       padding: 20px;
@@ -55,25 +55,6 @@
       border: 2px solid #7b2fff;
       background: #fff;
     }
-    #historico {
-      margin-top: 20px;
-      background: #2a0033;
-      padding: 10px;
-      border: 1px solid #7b2fff;
-    }
-    #historico h2 {
-      margin: 0 0 10px 0;
-      color: #7b2fff;
-    }
-    #historico ul {
-      list-style: none;
-      padding: 0;
-    }
-    #historico li {
-      margin: 5px 0;
-      cursor: pointer;
-      color: #0ff;
-    }
     footer {
       text-align: center;
       margin-top: 20px;
@@ -83,7 +64,8 @@
 </head>
 <body>
   <header>
-    <img src="https://files.catbox.moe/2ef12l.png" alt="Lendário Studio Logo">
+    <!-- Novo logo da Lendário Studio -->
+    <img src="https://files.catbox.moe/om54bz.png" alt="Lendário Studio Logo">
     <h1>💻 Testador Código Lendário</h1>
   </header>
 
@@ -92,18 +74,10 @@
   <button onclick="testarCodigo()">Testar Código Lendário</button>
   <button onclick="limparCodigo()">Limpar</button>
   <button onclick="salvarCodigo()">Salvar</button>
-  <button onclick="compartilharCodigo()">Compartilhar</button>
 
   <iframe id="output"></iframe>
 
-  <div id="historico">
-    <h2>📂 Histórico de Códigos</h2>
-    <ul id="listaHistorico"></ul>
-  </div>
-
   <script>
-    let historico = [];
-
     function testarCodigo() {
       const codigo = document.getElementById("codigo").value;
       const iframe = document.getElementById("output");
@@ -111,10 +85,6 @@
       doc.open();
       doc.write(codigo);
       doc.close();
-
-      // adiciona ao histórico
-      historico.push(codigo);
-      atualizarHistorico();
     }
 
     function limparCodigo() {
@@ -129,34 +99,6 @@
       link.download = "codigo_lendario.html";
       link.click();
     }
-
-    function compartilharCodigo() {
-      const codigo = document.getElementById("codigo").value;
-      const encoded = encodeURIComponent(codigo);
-      const url = window.location.origin + window.location.pathname + "?code=" + encoded;
-      prompt("Copie este link para compartilhar:", url);
-    }
-
-    function atualizarHistorico() {
-      const lista = document.getElementById("listaHistorico");
-      lista.innerHTML = "";
-      historico.forEach((item, index) => {
-        const li = document.createElement("li");
-        li.textContent = "Código " + (index + 1);
-        li.onclick = () => {
-          document.getElementById("codigo").value = item;
-        };
-        lista.appendChild(li);
-      });
-    }
-
-    // Se houver código compartilhado via link
-    window.onload = () => {
-      const params = new URLSearchParams(window.location.search);
-      if (params.has("code")) {
-        document.getElementById("codigo").value = decodeURIComponent(params.get("code"));
-      }
-    };
   </script>
 
   <footer>
